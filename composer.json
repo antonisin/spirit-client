@@ -1,0 +1,19 @@
+{
+    "name": "maximantonisin/spirit-client",
+    "description": "Abstract client instance",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Maxim Antonisin",
+            "email": "maxim.antonisin@gmail.com"
+        }
+    ],
+    "require": {
+        "guzzlehttp/guzzle": "^6.3",
+        "symfony/http-foundation": "^4.0"
+    },
+    "autoload": {
+        "psr-4": { "MaximAntonisin\\Spirit\\": "src/" }
+    }
+}
