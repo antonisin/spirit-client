@@ -37,7 +37,7 @@ class SpiritAsyncClient extends SpiritBaseClient
     {
         $params = array_merge(SpiritAsyncClient::DEFAULT_PARAMS, $params);
 
-        $responses[] = $this->client->requestAsync($method, $url, $params);
+        $this->responses[] = $this->client->requestAsync($method, $url, $params);
 
         return $this;
     }

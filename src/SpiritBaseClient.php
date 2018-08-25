@@ -43,17 +43,22 @@ class SpiritBaseClient
 
     /**
      * SpiritBaseClient constructor.
+     *
+     * @param array $params
      */
-    public function __construct()
+    public function __construct(array $params = [])
     {
         $this->cookie = new CookieJar();
 
+        if (array_key_exists('base_uri', $params)) {
+            $this->baseUrl = $params['base_uri'];
+        }
+
         if ($this->baseUrl) {
-            $params = [
+            $this->client = new Client([
                 'base_uri' => $this->baseUrl,
                 'cookies'  => $this->cookie,
-            ];
-            $this->client = new Client($params);
+            ]);
         }
     }
 
@@ -67,11 +72,10 @@ class SpiritBaseClient
      */
     public function reInitClient($url = null):self
     {
-        $params = [
+        $this->client = new Client([
             'base_uri' => $url ?? $this->baseUrl,
             'cookies'  => $this->cookie,
-        ];
-        $this->client = new Client($params);
+        ]);
 
         return $this;
     }
