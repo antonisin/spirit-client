@@ -105,10 +105,22 @@ class SpiritAsyncClient extends SpiritBaseClient
     public function reInitClient($url = null, bool $full = false): SpiritBaseClient
     {
         if ($full) {
-            $this->responses = [];
-            $this->contents  = [];
+            $this->reset();
         }
 
         return parent::reInitClient($url);
+    }
+
+    /**
+     * Reset response and content properties.
+     *
+     * @return self
+     */
+    public function reset():self
+    {
+        $this->responses = [];
+        $this->contents  = [];
+
+        return $this;
     }
 }
