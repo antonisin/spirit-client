@@ -98,4 +98,17 @@ class SpiritAsyncClient extends SpiritBaseClient
     {
         return $this->contents;
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function reInitClient($url = null, bool $full = false): SpiritBaseClient
+    {
+        if ($full) {
+            $this->responses = [];
+            $this->contents  = [];
+        }
+
+        return parent::reInitClient($url);
+    }
 }
