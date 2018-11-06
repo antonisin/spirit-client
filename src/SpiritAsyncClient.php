@@ -2,6 +2,7 @@
 
 namespace MaximAntonisin\Spirit;
 
+use GuzzleHttp\Promise\Promise;
 use GuzzleHttp\Psr7\Response;
 
 /**
@@ -55,6 +56,9 @@ class SpiritAsyncClient extends SpiritBaseClient
     public function sendAll(bool $keepError = false):self
     {
         foreach ($this->responses as $index => $promise) {
+            if (!($promise instanceof Promise)) {
+                continue;
+            }
             try {
                 /** @var Response $response */
                 $response = $promise->wait();
