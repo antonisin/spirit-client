@@ -1,6 +1,6 @@
 {
     "name": "maximantonisin/spirit-client",
-    "description": "Abstract client instance",
+    "description": "Abstract Guzzle Client instance",
     "type": "library",
     "license": "MIT",
     "authors": [
@@ -11,9 +11,11 @@
     ],
     "require": {
         "guzzlehttp/guzzle": "^6.3",
-        "symfony/http-foundation": ">2"
+        "symfony/http-foundation": "4.2.12"
     },
     "autoload": {
-        "psr-4": { "MaximAntonisin\\Spirit\\": "src/" }
+        "psr-4": {
+            "MaximAntonisin\\Spirit\\": "src/"
+        }
     }
 }
