@@ -3,7 +3,7 @@
 ## Author 
 Maxim Antonisin <br>
 [maxim.antonisin@gmail.com](mailto:maxim.antonisin@gmail.com) <br>
-[Linkedin](https://www.linkedin.com/in/victor-berestian-bbab07a6/)
+[Linkedin](https://www.linkedin.com/in/mantonishin/)
 
 
 ## Description
