@@ -10,7 +10,7 @@ use GuzzleHttp\Psr7\Response;
  *
  * @author Maxim Antonisin <maxim.antonisin@gmail.com>
  *
- * @version 1.1.0
+ * @version 1.2.0
  */
 class SpiritAsyncClient extends SpiritBaseClient
 {
@@ -75,9 +75,11 @@ class SpiritAsyncClient extends SpiritBaseClient
                     $this->contents[$index] = $content;
                 }
             } catch (\Exception $exception) {
-                if (false === $keepError) {
-                    unset($this->responses[$index]);
+                if ($keepError) {
+                    $this->responses[$index] = $exception;
+                    continue;
                 }
+                unset($this->responses[$index]);
             }
         }
 
