@@ -10,11 +10,11 @@ use GuzzleHttp\Psr7\Response;
  *
  * @author Maxim Antonisin <maxim.antonisin@gmail.com>
  *
- * @version 1.0.0
+ * @version 1.1.0
  */
 class SpiritAsyncClient extends SpiritBaseClient
 {
-    const DEFAULT_PARAMS = [
+    public const DEFAULT_PARAMS = [
         'connect_timeout' => 5,
         'timeout'         => 5,
         'http_errors'     => false,
@@ -36,7 +36,7 @@ class SpiritAsyncClient extends SpiritBaseClient
      */
     public function addRequest(string $method = 'GET', string $url = '', array $params = []):self
     {
-        $params = array_merge(SpiritAsyncClient::DEFAULT_PARAMS, $params);
+        $params = array_merge(self::DEFAULT_PARAMS, $params);
 
         $this->responses[] = $this->client->requestAsync($method, $url, $params);
 
@@ -46,10 +46,10 @@ class SpiritAsyncClient extends SpiritBaseClient
     /**
      * Send all stacked requests.
      * This method is designed to send all requests from stack. This method may receive argument $keepError. If this
-     * argument is true, all invalid requests will be keeped in request stack. If this argument is false, this method
-     * will remove all requests with error.
+     * argument is true, all invalid requests will be kept in request stack. If this argument is false, this method will
+     * remove all requests with error.
      *
-     * @param bool $keepError
+     * @param bool $keepError - Argument flag to keep unsuccessful requests promises.
      *
      * @return self
      */
@@ -62,9 +62,10 @@ class SpiritAsyncClient extends SpiritBaseClient
             try {
                 /** @var Response $response */
                 $response = $promise->wait();
-                $content  = $response->getBody()->getContents();
-
                 $this->responses[$index] = clone $response;
+
+                /** @noinspection NullPointerExceptionInspection */
+                $content = $response->getBody()->getContents();
                 $this->contents[$index]  = $content;
 
                 /** Check if response content may be decoded. */
@@ -74,7 +75,7 @@ class SpiritAsyncClient extends SpiritBaseClient
                     $this->contents[$index] = $content;
                 }
             } catch (\Exception $exception) {
-                if (true === $keepError) {
+                if (false === $keepError) {
                     unset($this->responses[$index]);
                 }
             }
@@ -94,7 +95,7 @@ class SpiritAsyncClient extends SpiritBaseClient
     }
 
     /**
-     * Return array of responses's content.
+     * Return array of responses content.
      *
      * @return array
      */
