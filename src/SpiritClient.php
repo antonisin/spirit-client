@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
  *
  * @author Maxim Antonisin <maxim.antonisin@gmail.com>
  *
- * @version 1.0.0
+ * @version 1.0.1
  */
 class SpiritClient extends SpiritBaseClient
 {
@@ -39,7 +39,7 @@ class SpiritClient extends SpiritBaseClient
      *
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function sendRequest(string $url, string $method = Request::METHOD_GET, array $params = [])
+    public function sendRequest(string $url, string $method = Request::METHOD_GET, array $params = []): void
     {
         /** @noinspection PhpUnhandledExceptionInspection */
         $this->response = $this->client->request($method, $url, $params);
