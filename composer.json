@@ -10,7 +10,7 @@
         }
     ],
     "require": {
-        "guzzlehttp/guzzle": "^6.3",
+        "guzzlehttp/guzzle": ">=6.3",
         "symfony/http-foundation": ">=4.2.12",
         "ext-json": "*",
         "php": ">=7.2"
