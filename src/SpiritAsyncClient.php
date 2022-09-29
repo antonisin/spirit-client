@@ -4,20 +4,21 @@ namespace MaximAntonisin\Spirit;
 
 use GuzzleHttp\Promise\Promise;
 use GuzzleHttp\Psr7\Response;
+use GuzzleHttp\RequestOptions;
 
 /**
  * SpiritAsyncClient
  *
  * @author Maxim Antonisin <maxim.antonisin@gmail.com>
  *
- * @version 1.2.0
+ * @version 1.3.0
  */
 class SpiritAsyncClient extends SpiritBaseClient
 {
     public const DEFAULT_PARAMS = [
-        'connect_timeout' => 5,
-        'timeout'         => 5,
-        'http_errors'     => false,
+        RequestOptions::CONNECT_TIMEOUT => 5,
+        RequestOptions::HTTP_ERRORS     => false,
+        RequestOptions::TIMEOUT         => 5,
     ];
 
 
@@ -104,6 +105,24 @@ class SpiritAsyncClient extends SpiritBaseClient
     public function getContents():array
     {
         return $this->contents;
+    }
+
+    /**
+     * Get first content from responses.
+     * Async Spirit client is using several requests to get content and as result store their responses in collection.
+     * This method will return first successful response from collection of responses.
+     *
+     * @return false|array|mixed
+     */
+    public function getOneContent()
+    {
+        foreach ($this->getContents() as $content) {
+            if ($content and !empty($content)) {
+                return $content;
+            }
+        }
+
+        return false;
     }
 
     /**
